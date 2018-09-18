@@ -18,21 +18,13 @@ public class MiddleOfLinkedList {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
         ListNode current = head;
-        for (int i = 2; i < 7; i++){
+        for (int i = 2; i < 6; i++){
             current.next = new ListNode(i);
             current = current.next;
         }
 
         MiddleOfLinkedList problem = new MiddleOfLinkedList();
 
-        System.out.println(problem.middleNode(head));
-    }
-
-    class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) {
-            val = x;
-        }
+        System.out.println(problem.middleNode(head).val);
     }
 }
