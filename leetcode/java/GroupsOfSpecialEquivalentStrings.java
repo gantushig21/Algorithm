@@ -33,7 +33,7 @@ public class GroupsOfSpecialEquivalentStrings {
 
     public int numSpecialEquivGroups(String[] A) {
         Set<String> set = new HashSet<String>();
-
+        
         for (String s : A) {
             int[] count = new int[52];
             for (int i = 0; i < s.length(); i++)
