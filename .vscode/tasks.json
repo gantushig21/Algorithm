@@ -4,9 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "Compile and run",
             "type": "shell",
-            "command": "echo Hello"
+            "command": "",
+            "args": ["g++", "${relativeFile}", "-o", "leetcode/c++/exes/${fileBasenameNoExtension}", "&&", "./leetcode/c++/exes/${fileBasenameNoExtension}"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
