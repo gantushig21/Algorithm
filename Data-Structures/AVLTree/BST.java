@@ -15,42 +15,44 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 
     public boolean search(E e) {
         TreeNode<E> current = root;
-
         while (current != null) {
-            if (e.compareTo(current.element) < 0) {
+            if (e.compareTo(current.element) < 0)
                 current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
+            else if (e.compareTo(current.element) > 0)
                 current = current.right;
-            } else return true;
+            else
+                return true;
         }
-
         return false;
     }
 
     public boolean insert(E e) {
-        TreeNode<E> current = root;
-        TreeNode<E> parent = null;
-
-        while (current != null) {
-            parent = current;
-            if (e.compareTo(current.element) < 0) {
-                current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
-                current = current.right;
-            } else return false;
-        }
-        if (parent == null) {
-            root = new TreeNode<>(e);
-        } else {
-            if (e.compareTo(parent.element) < 0) {
-                parent.left = new TreeNode<>(e);
-            } else {
-                parent.right = new TreeNode<>(e);
+        if (root == null)
+            root = createNewNode(e);
+        else {
+            TreeNode<E> parent = null;
+            TreeNode<E> current = root;
+            while (current != null) {
+                if (e.compareTo(current.element) < 0) {
+                    parent = current;
+                    current = current.left;
+                } else if (e.compareTo(current.element) > 0) {
+                    parent = current;
+                    current = current.right;
+                } else
+                    return false;
             }
+            if (e.compareTo(parent.element) < 0)
+                parent.left = createNewNode(e);
+            else
+                parent.right = createNewNode(e);
         }
-
         size++;
         return true;
+    }
+
+    protected TreeNode<E> createNewNode(E e) {
+        return new TreeNode<>(e);
     }
 
     public void inorder() {
@@ -58,7 +60,9 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     protected void inorder(TreeNode<E> root) {
-        if (root == null) return;
+        if (root == null)
+            return;
+
         inorder(root.left);
         System.out.print(root.element + " ");
         inorder(root.right);
@@ -68,11 +72,13 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         postorder(root);
     }
 
-    protected void postorder(TreeNode<E> root) {
-        if (root == null) return;
+    public void postorder(TreeNode<E> root) {
+        if (root == null)
+            return;
+
+        postorder(root.left);
+        postorder(root.right);
         System.out.print(root.element + " ");
-        inorder(root.left);
-        inorder(root.right);
     }
 
     public void preorder() {
@@ -80,19 +86,21 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     public void preorder(TreeNode<E> root) {
-        if (root == null) return;
-        inorder(root.left);
-        inorder(root.right);
-        System.out.print(root.element + " ");
+        if (root == null)
+            return;
+
+        System.out.println(root.element + " ");
+        preorder(root.left);
+        preorder(root.right);
     }
 
-    public static class TreeNode<E extends Comparable<E>>{
+    public static class TreeNode<E extends Comparable<E>> {
         protected E element;
         protected TreeNode<E> left;
         protected TreeNode<E> right;
-    
-        public TreeNode(E e) {
-            element = e;
+
+        public TreeNode(E element) {
+            this.element = element;
         }
     }
 
@@ -110,56 +118,52 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         TreeNode<E> current = root;
         while (current != null) {
             list.add(current);
-            if (e.compareTo(current.element) < 0) {
+            if (e.compareTo(current.element) < 0)
                 current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
+            else if (e.compareTo(current.element) > 0)
                 current = current.right;
-            } else break;
+            else
+                break;
         }
 
         return list;
     }
 
     public boolean delete(E e) {
-        TreeNode<E> current = root;
         TreeNode<E> parent = null;
-
+        TreeNode<E> current = root;
         while (current != null) {
             parent = current;
-            if (e.compareTo(current.element) < 0) {
+            if (e.compareTo(current.element) < 0)
                 current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
+            else if (e.compareTo(current.element) > 0)
                 current = current.right;
-            } else break;
+            else
+                break;
         }
-
-        if (current == null) return false;
+        if (current == null)
+            return false;
 
         if (current.left == null) {
-            if (parent == null) {
+            if (parent == null)
                 root = current.right;
-            } else {
-                if (e.compareTo(parent.element) < 0) {
-                    parent.left = current.right;
-                } else {
-                    parent.right = current.right;
-                }
-            }
+            else if (e.compareTo(parent.element) < 0)
+                parent.left = current.right;
+            else
+                parent.right = current.right;
         } else {
             TreeNode<E> parentOfRightMost = current;
             TreeNode<E> rightMost = current.left;
-            while (rightMost.right != null) {
+            while (rightMost != null) {
                 parentOfRightMost = rightMost;
                 rightMost = rightMost.right;
             }
-
             current.element = rightMost.element;
 
-            if (parentOfRightMost.right == rightMost) {
+            if (parentOfRightMost.right == rightMost)
                 parentOfRightMost.right = rightMost.left;
-            } else {
+            else
                 parentOfRightMost.left = rightMost.left;
-            }
         }
 
         size--;
@@ -183,7 +187,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         }
 
         private void inorder(TreeNode<E> root) {
-            if (root == null) return;
+            if (root == null)
+                return;
             inorder(root.left);
             list.add(root.element);
             inorder(root.right);
@@ -209,4 +214,3 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         size = 0;
     }
 }
-
