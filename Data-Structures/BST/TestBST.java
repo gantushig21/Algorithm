@@ -31,5 +31,9 @@ public class TestBST {
         BST<Integer> intTree = new BST<>(numbers);
         System.out.print("\nInorder (sorted): ");
         intTree.inorder();
+        System.out.println();
+
+        for (String s: tree)
+            System.out.println(s.toUpperCase() + " ");
     }
 }
